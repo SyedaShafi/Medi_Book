@@ -57,6 +57,7 @@
             class="form-control me-2 search-box" 
             type="search"
             name='search'
+            value='{{query}}'
             placeholder="Search medicine...."
             aria-label="Search"
           />
@@ -70,7 +71,7 @@
   {% if messages %}
     <ul class="messages list-inline">
         {% for message in messages %}
-        <li{% if message.tags %} class="bg-{{ message.tags }} text-center rounded p-1"{% endif %}><h4>{{ message }}</h4></li>
+        <li{% if message.tags %} class="bg-{{ message.tags }} w-50 mx-auto text-center rounded p-1"{% endif %}><h4>{{ message }}</h4></li>
           {% endfor %}
       </ul>
   {% endif %}

@@ -16,7 +16,6 @@ def validate_medicine_data(data):
     if not data.get('manufacturer'):
         errors['manufacturer'] = "Manufacturer is required."
 
-
     if not data.get('description'):
         errors['description'] = "Description is required."
 
@@ -43,13 +42,21 @@ def validate_medicine_data(data):
 def HomeView(request):
     query = request.GET.get('search', '').strip()
     if query:
-        medicines = MedicineModel.objects.filter(
-            Q(name__icontains=query) | Q(generic_name__icontains=query)
-        )
-        for medicine in medicines:
-            pattern = re.compile(re.escape(query), re.IGNORECASE)
-            medicine.generic_name = pattern.sub(f'<mark>{query}</mark>', medicine.generic_name)
-            medicine.name = pattern.sub(f'<mark>{query}</mark>', medicine.name)
+        query_words = [word for word in query.split() if len(word) > 0]
+        if query_words:
+            q_objects = Q()
+            for word in query_words:
+                q_objects |= Q(name__icontains=word) | Q(generic_name__icontains=word)
+            medicines = MedicineModel.objects.filter(q_objects).distinct()
+            
+            for medicine in medicines:
+                for word in query_words:
+                    pattern = re.compile(re.escape(word), re.IGNORECASE)
+                    medicine.generic_name = pattern.sub(f'<mark>{word}</mark>', medicine.generic_name)
+                    medicine.name = pattern.sub(f'<mark>{word}</mark>', medicine.name)
+
+        else:
+            medicines = MedicineModel.objects.all().order_by('-id')
     else:
         medicines = MedicineModel.objects.all().order_by('-id')
     context = {'data': medicines, 'query': query}
