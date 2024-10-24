@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block body %}
+
+
+
+<div class="card container mt-5">
+  <div class="card-body">
+    <blockquote class="blockquote mb-0 mx-auto">
+      <h3>Medicine Name: {{data.name}}</h3>
+      <p><b>Generic Name:</b> {{data.generic_name}}</p>
+      <p><b> Manufacturer (mfd):</b> {{data.manufacturer }}</p>
+      <p><b> Description: </b> {{data.description }}</p>
+      <p><b> Price: </b> {{data.price }} BDT</p>
+      <p><b> Batch Number:</b> {{data.batch_number }}</p>
+      <p><b> Form: </b> {{data.form }}</p>
+      <p><b> Stock: </b> {{data.stock_quantity}}</p>
+    </blockquote>
+  </div>
+</div>
+
+{% endblock %}

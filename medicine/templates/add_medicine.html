@@ -1,0 +1,109 @@
+{% extends "base.html" %} {% block body %}
+<form class="container w-50 mt-5 mb-5" method="POST">
+  {% csrf_token %}
+  <h3 class="text-center">Medicine Form</h3>
+
+  {% if errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, error in errors.items %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+  {% endif %}
+
+  <div class="mb-3">
+    <label for="medicien_name" class="form-label">Medicine Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="medicien_name"
+      name="name"
+      value="{{data.name}}"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="generic_name" class="form-label">Generic Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="generic_name"
+      name="generic_name"
+      value="{{data.generic_name}}"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="menufacturer" class="form-label">Manufacturer (mfd)</label>
+    <input
+      type="text"
+      class="form-control"
+      id="menufacturer"
+      name="manufacturer"
+      value="{{data.manufacturer}}"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      name="description"
+      value="{{data.description}}"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input
+      type="text"
+      class="form-control"
+      id="price"
+      name="price"
+      value="{{data.price}}"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="batch_number" class="form-label">Batch Number</label>
+    <input
+      type="text"
+      class="form-control"
+      id="batch_number"
+      name="batch_number"
+      value="{{data.batch_number}}"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="form" class="form-label">Form</label>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      name="form"
+      required
+    >
+        <option value="Syrup" {% if data.form == 'Syrup' %}selected{% endif %}>Syrup</option>
+        <option value="Tablet" {% if data.form == 'Tablet' %}selected{% endif %}>Tablet</option>
+        <option value="Capsule" {% if data.form == 'Capsule' %}selected{% endif %}>Capsule</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="stock" class="form-label">Stock Quantity</label>
+    <input
+      type="text"
+      class="form-control"
+      id="stock"
+      name="stock_quantity"
+      value="{{data.stock_quantity}}"
+      required
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

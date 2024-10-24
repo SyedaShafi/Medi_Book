@@ -1,0 +1,17 @@
+.search-box{
+    width: 500px;
+}
+
+li{
+    text-decoration: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+mark{
+    background-color: yellow;
+    font-weight: bold;
+    padding-inline: 5px;
+}
